@@ -8,7 +8,7 @@ for i in subtitle:
     print(i)
     sleep(0.5)
 
-def voice(message, voice_index=1, rate=170):
+def voice(message, voice_index=1, rate=180):
     engine = pyttsx3.init()
 
     try:
