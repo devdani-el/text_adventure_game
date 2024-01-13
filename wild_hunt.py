@@ -1,98 +1,96 @@
 from time import sleep
-from sys import exit
+import pyttsx3
 
-nick = []
 
-# Introduction
-def introduction():
-    title = ['  88  88  88  88   888888888888888  88888    88   8888   88  88    888888', ' 888  888 88  88  88     88  88	    88  88   88 88    88 88  88   88', '88 8888 88 8888    8888  88  8888   88888    88 88    88 88  88    8888', '88  88  88  88        88 88  88	    88  88   88 88    88 88  88       88', '88  88  88  88 88888888  88  888888 88   888 88   8888    8888 88888888', '', '	    88888    88  88   88   88 8888888   888888   8888     88    88', '	    88   88  88  88  888   88 88         88     88    88  888   88', '	    88    88 88  88 88 888 88 88   88    8888   88    88 88 888 88', '	    88   88  88  88 88   8888 88    888  88     88    88 88   8888', '	    88888     8888  88     88  888888 88 888888   8888  888     88', '']
+subtitle = ["\n", ":::       ::: ::::::::::: :::        :::::::::      :::    ::: :::    ::: ::::    ::: :::::::::::", ":+:       :+:     :+:     :+:        :+:    :+:     :+:    :+: :+:    :+: :+:+:   :+:     :+:", "+:+       +:+     +:+     +:+        +:+    +:+     +:+    +:+ +:+    +:+ :+:+:+  +:+     +:+", "+#+  +:+  +#+     +#+     +#+        +#+    +:+     +#++:++#++ +#+    +:+ +#+ +:+ +#+     +#+", "+#+ +#+#+ +#+     +#+     +#+        +#+    +#+     +#+    +#+ +#+    +#+ +#+  +#+#+#     +#+", " #+#+# #+#+#      #+#     #+#        #+#    #+#     #+#    #+# #+#    #+# #+#   #+#+#     #+#", "  ###   ###   ########### ########## #########      ###    ###  ########  ###    ####     ###"]
 
-    for i in title:
-        print(i)
-        sleep(0.3)
+for i in subtitle:
+    print(i)
+    sleep(0.5)
 
-    print('Welcome to the Text Adventure Game!')
+def voice(message, voice_index=1, rate=170):
+    engine = pyttsx3.init()
+
+    try:
+        voices = engine.getProperty('voices')
+        engine.setProperty('voice', voices[voice_index].id)
+        engine.setProperty('rate', rate)
+
+        print(f'{message}')
+        engine.say(message)
+        engine.runAndWait()
+
+    except pyttsx3.EngineError as e:
+        print(f'Error initializing the text-to-speech engine: {e}')
+    except Exception as e:
+        print(f'Error speaking the message: {e}')
+
+
+def credits():
     sleep(2)
-    print('You find yourself in front of a mysterious dungeon.')
+    print("\nBased on the game: The Witcher 3")
     sleep(2)
-    print('Your goal is to navigate through and find the treasure.')
+    print("By: CD Projekt Red")
     sleep(2)
-    print('But before...\n')
+    print("I present an RPG adventure developed entirely in text, \nDeveloped by a fan.")
+
+
+def intro():
+    sleep(5)
+    voice("\nA war is happening between nations...")
+    voice("\nAnd a girl carrying a mystery is fleeing from hunters. \nThe only person who can give her a clue continues to evade.")
+    sleep(2)
+    voice("\nIn the present day\n")
+    voice("You arrive at a battlefield where warriors had clashed a few days ago.")
+    voice("You find traces of the person you've been searching for, \nconcluding that she kept running in the direction she was heading, as if something were following her.")
+    sleep(2)
+    voice("\nWelcome to this story.")
+    voice("You will experience the events of this world through the eyes of Geralt of Rivia.")
+    voice("You can decide the course of events. \nEnjoy this journey...\n")
+
+    sleep(4)
+    voice("You and Master Vesemir decide to rest for the night.")
+    voice("While sleeping, you dream of times at Kaer Morhen...\n")
     sleep(2)
 
-def nickname():
-    name = str(input('What is your name, noble adventurer: ')).strip().capitalize()
-    nick.append(name)
-    return name
+    print("Yennefer of Vengerberg:")
+    voice("   -You promised Ciri that you would train her.")
+    voice("   Go, before Vesemir bores her to death with those drawings.\n")
+    print("Geralt of Rivia:")
+    voice("   -I thought Ciri could wait a little longer.\n", voice_index=2)
+    print("Yennefer of Vengerberg:")
+    voice("   -Nothing instructive. Not to mention it's irrational.")
 
-# choose path
-def choose_path():
     while True:
-        print(f'\nAdventurer, {nickname()}')
-        print('Make your future... ⚔️')
-        sleep(2)
-        print('1 - Enter the dungeon')
-        print('2 - go away to explore')
-        choose = int(input('Enter 1 or 2: '))
-        if choose == 1:
+        print("\nEnter a option:")
+        options = int(input("[ 1 ] I want to stay with you a little longer. \n[ 2 ] Let's be irrational. \n[ 3 ] You're right. I should go see Ciri. \nOption: "))
+        if options == 1:
+            print("Geralt of Rivia:")
+            voice("   -I want to spend a bit more time with you.", voice_index=2)
             break
-        else:
-            go_away()
-        return choose_path
-    
+        elif options == 2:
+            print("Geralt of Rivia:")
+            voice("I don't want to be rational.", voice_index=2)
+            break
+        elif options == 3:
+            print("Geralt of Rivia:") 
+            voice("You're right. I should go see Ciri.", voice_index=2)
+            break
 
-def go_away():
-    print('\nYou chose to move on.')
+    print("\nYennefer of Vengerberg:")
+    voice("   -Aha! So that's the way the wind blows!")
+    voice("   Go and train with her. Then come back. That will give me a chance to get ready.")
+    print("\nGeralt of Rivia:")
+    voice("   -Of all the women I know, you're the only one who does this before...", voice_index=2)
+    print("\nYennefer of Vengerberg:")
+    voice("   -You know many?")
+    print("\nGeralt of Rivia:")
+    voice("   -What's the problem? I've always thought of you.", voice_index=2)
     sleep(2)
-    print('You LOSE! 👾👾👾')
-    exit()
 
-
-# explore dungeon
-def explore_dungeon():
-    print('\nYou entered the dark dungeon 🏯')
-    sleep(2)
-    print('Two doors were found.')
-    sleep(2)
-    print('Which one do you want to open?')
-    sleep(1)
-    print('1 - Right door 🚪')
-    print('2 - Left  door 🚪')
-    choose = int(input('Enter 1 or 2: '))
-    if choose == 1:
-        treasure_room()
-    else:
-        left_door()
-        game_over()
-    return explore_dungeon
-
-def left_door():
-    print("\nOh no! You've come across a large basilisk.")
-    sleep(2)
-    game_over()
-
-# treasure room
-def treasure_room():
-    print("\nBravo! Adventurer, you've found the treasure room. ")
-    sleep(2)
-    print('You WON! 🪙🪙🪙')
-    print(f'{nick[0]}, you have completed your journey! Return home with your treasure.')
-
-
-# game over
-def game_over():
-    print('\nYou LOSE! 👾👾👾')
-    sleep(2)
-    exit()
-    
-
-
-# main
 def main():
-    introduction()
-    choose_path()
-    explore_dungeon()
+    credits()
+    intro()
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
