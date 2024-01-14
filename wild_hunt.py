@@ -1,12 +1,15 @@
 from time import sleep
 import pyttsx3
+from os import system, name
 
 
-subtitle = ["\n", ":::       ::: ::::::::::: :::        :::::::::      :::    ::: :::    ::: ::::    ::: :::::::::::", ":+:       :+:     :+:     :+:        :+:    :+:     :+:    :+: :+:    :+: :+:+:   :+:     :+:", "+:+       +:+     +:+     +:+        +:+    +:+     +:+    +:+ +:+    +:+ :+:+:+  +:+     +:+", "+#+  +:+  +#+     +#+     +#+        +#+    +:+     +#++:++#++ +#+    +:+ +#+ +:+ +#+     +#+", "+#+ +#+#+ +#+     +#+     +#+        +#+    +#+     +#+    +#+ +#+    +#+ +#+  +#+#+#     +#+", " #+#+# #+#+#      #+#     #+#        #+#    #+#     #+#    #+# #+#    #+# #+#   #+#+#     #+#", "  ###   ###   ########### ########## #########      ###    ###  ########  ###    ####     ###"]
+def title():
+    subtitle = ["\n", ":::       ::: ::::::::::: :::        :::::::::      :::    ::: :::    ::: ::::    ::: :::::::::::", ":+:       :+:     :+:     :+:        :+:    :+:     :+:    :+: :+:    :+: :+:+:   :+:     :+:", "+:+       +:+     +:+     +:+        +:+    +:+     +:+    +:+ +:+    +:+ :+:+:+  +:+     +:+", "+#+  +:+  +#+     +#+     +#+        +#+    +:+     +#++:++#++ +#+    +:+ +#+ +:+ +#+     +#+", "+#+ +#+#+ +#+     +#+     +#+        +#+    +#+     +#+    +#+ +#+    +#+ +#+  +#+#+#     +#+", " #+#+# #+#+#      #+#     #+#        #+#    #+#     #+#    #+# #+#    #+# #+#   #+#+#     #+#", "  ###   ###   ########### ########## #########      ###    ###  ########  ###    ####     ###"]
 
-for i in subtitle:
-    print(i)
-    sleep(0.5)
+    clear_screen()
+    for i in subtitle:
+        print(i)
+        sleep(0.5)
 
 def voice(message, voice_index=1, rate=180):
     engine = pyttsx3.init()
@@ -26,17 +29,35 @@ def voice(message, voice_index=1, rate=180):
         print(f'Error speaking the message: {e}')
 
 
+def continue_bttn():
+    while True:
+        try:
+            c = str(input("Press Enter to continue "))
+            if c == '':
+                break
+        except ValueError:
+            print('Wrong option, press Enter to continue.')
+
+
+def clear_screen():
+    system('cls' if name == 'nt' else 'clear')
+
+
 def credits():
     sleep(2)
     print("\nBased on the game: The Witcher 3")
     sleep(2)
     print("By: CD Projekt Red")
     sleep(2)
-    print("I present an RPG adventure developed entirely in text, \nDeveloped by a fan.")
-
+    print("I present an RPG adventure developed entirely in text,")
+    sleep(2)
+    print("Developed by a fan.\n")
+    sleep(4)
+    continue_bttn()
+    clear_screen()
 
 def intro():
-    sleep(5)
+    sleep(2)
     voice("\nA war is happening between nations...")
     voice("\nAnd a girl carrying a mystery is fleeing from hunters. \nThe only person who can give her a clue continues to evade.")
     sleep(2)
@@ -46,9 +67,12 @@ def intro():
     sleep(2)
     voice("\nWelcome to this story.")
     voice("You will experience the events of this world through the eyes of Geralt of Rivia.")
-    voice("You can decide the course of events. \nEnjoy this journey...\n")
+    voice("You can decide the course of events.")
+    voice("Enjoy this journey...\n")
+    continue_bttn()
+    clear_screen()
 
-    sleep(4)
+    sleep(2)
     voice("You and Master Vesemir decide to rest for the night.")
     voice("While sleeping, you dream of times at Kaer Morhen...\n")
     sleep(2)
@@ -64,16 +88,14 @@ def intro():
     while True:
         print("\nEnter a option:")
         options = int(input("[ 1 ] I want to stay with you a little longer. \n[ 2 ] Let's be irrational. \n[ 3 ] You're right. I should go see Ciri. \nOption: "))
+        print("\nGeralt of Rivia:")
         if options == 1:
-            print("Geralt of Rivia:")
             voice("   -I want to spend a bit more time with you.", voice_index=2)
             break
         elif options == 2:
-            print("Geralt of Rivia:")
             voice("I don't want to be rational.", voice_index=2)
             break
         elif options == 3:
-            print("Geralt of Rivia:") 
             voice("You're right. I should go see Ciri.", voice_index=2)
             break
 
@@ -89,6 +111,7 @@ def intro():
     sleep(2)
 
 def main():
+    title()
     credits()
     intro()
 
