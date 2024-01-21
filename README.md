@@ -1,6 +1,6 @@
 # The Witcher 3 Text Adventure
 
-![The Witcher 3 Text Adventure](witcher3_image.jpg)
+![The Witcher 3 Text Adventure](image_wild_hunt.jpg)
 
 ## Introduction
 
